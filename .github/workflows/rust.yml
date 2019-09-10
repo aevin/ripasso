@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Dependencies
-      run: sudo apt install gpg
+      run: sudo apt install  libgpg-dev
     - name: Build
       run: cargo build --verbose
     - name: Run tests
