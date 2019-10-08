@@ -12,6 +12,6 @@ jobs:
     - name: Dependencies
       run: sudo apt install libgpg-error-dev libgpgme11-dev
     - name: Build
-      run: cargo build -p cursive --verbose
+      run: cargo build -p ripasso-cursive --verbose
     - name: Run tests
       run: cargo test --verbose
