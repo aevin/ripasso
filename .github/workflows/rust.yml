@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Dependencies
-      run: sudo apt install libgpg-error-dev libgpgme11-dev
+      run: sudo apt install libgpg-error-dev libgpgme11-dev libncurses5-dev
     - name: Build
       run: cargo build -p ripasso-cursive --verbose
     - name: Run tests
