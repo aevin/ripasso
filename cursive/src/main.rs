@@ -22,6 +22,7 @@ extern crate ripasso;
 use self::cursive::traits::*;
 use self::cursive::views::{
     Dialog, EditView, LinearLayout, OnEventView, SelectView, TextArea, TextView, CircularFocus,
+    ScrollView, BoxView, IdView
 };
 
 use cursive::Cursive;
@@ -45,11 +46,17 @@ fn down(ui: &mut Cursive) -> () {
     ui.call_on_id("results", |l: &mut SelectView<pass::PasswordEntry>| {
         l.select_down(1);
     });
+    ui.call_on_id("scroll_results", |l: &mut ScrollView<BoxView<IdView<SelectView<pass::PasswordEntry>>>>| {
+        l.scroll_to_important_area();
+    });
 }
 
 fn up(ui: &mut Cursive) -> () {
     ui.call_on_id("results", |l: &mut SelectView<pass::PasswordEntry>| {
         l.select_up(1);
+    });
+    ui.call_on_id("scroll_results", |l: &mut ScrollView<BoxView<IdView<SelectView<pass::PasswordEntry>>>>| {
+        l.scroll_to_important_area();
     });
 }
 
@@ -576,13 +583,16 @@ fn main() {
         .with_id("results")
         .full_height();
 
+    let scroll_results = ScrollView::new(results)
+        .with_id("scroll_results");
+
     ui.add_layer(
         LinearLayout::new(Orientation::Vertical)
             .child(
                 Dialog::around(
                     LinearLayout::new(Orientation::Vertical)
                         .child(searchbox)
-                        .child(results)
+                        .child(scroll_results)
                         .fixed_width(72),
                 ).title("Ripasso"),
             ).child(
